@@ -10,7 +10,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class Activity2 extends AppCompatActivity {
-    String nom,pass;
     TextView name,contra;
     Button button;
 
@@ -18,16 +17,14 @@ public class Activity2 extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_2);
-        nom=getIntent().getStringExtra("usuario");
-        pass=getIntent().getStringExtra("contra");
         name=(TextView)findViewById(R.id.textView);
         contra=(TextView) findViewById(R.id.textView2);
         button=(Button) findViewById(R.id.button2);
-        name.setText(nom);
-        contra.setText(pass);
-        button.setOnClickListener(cerrar);
+        name.setText(getIntent().getStringExtra("usuario"));
+        contra.setText(getIntent().getStringExtra("contra"));
+        button.setOnClickListener(Close);
     }
-    View.OnClickListener cerrar= new View.OnClickListener() {
+    View.OnClickListener Close = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
 
