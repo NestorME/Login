@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
             if(name.equals("") || code.equals("")) {
                 Toast.makeText(MainActivity.this, "ingrese un usuario y una contraseña",Toast.LENGTH_SHORT).show();
             }else{
-                Intent i = new Intent(MainActivity.this, Activity2.class);
+                Intent i = new Intent(getApplicationContext(), Activity2.class);
                 i.putExtra("usuario",name);
                 i.putExtra("contra",code);
                 startActivity(i);
