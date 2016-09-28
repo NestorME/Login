@@ -20,8 +20,8 @@ public class Activity2 extends AppCompatActivity {
         name=(TextView)findViewById(R.id.textView);
         contra=(TextView) findViewById(R.id.textView2);
         button=(Button) findViewById(R.id.button2);
-        name.setText(getIntent().getStringExtra("usuario"));
-        contra.setText(getIntent().getStringExtra("contra"));
+        name.setText("Bienvenido");
+        contra.setText(getIntent().getStringExtra("usuario"));
         button.setOnClickListener(Close);
     }
     View.OnClickListener Close = new View.OnClickListener() {

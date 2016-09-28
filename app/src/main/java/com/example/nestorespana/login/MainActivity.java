@@ -1,44 +1,60 @@
 package com.example.nestorespana.login;
 
-import android.content.Intent;
+import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
+import android.net.Uri;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity {
-     Button button;
-     EditText user,pass;
+public class MainActivity extends AppCompatActivity implements View.OnClickListener,LoginFrg.OnFragmentInteractionListener,RegistroFrg.OnFragmentInteractionListener {
+
+    Button btnfr1,btnfr2;
+    SQLiteDatabase db;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        button=(Button) findViewById(R.id.button);
-        user=(EditText)findViewById(R.id.editText);
-        pass=(EditText)findViewById(R.id.editText2);
-        button.setOnClickListener(iniciar);
+
+
+
+        btnfr1 =(Button) findViewById(R.id.logFra);
+        btnfr2 = (Button) findViewById(R.id.regFra);
+        db=openOrCreateDatabase("LoginDB", Context.MODE_PRIVATE, null);
+        db.execSQL("CREATE TABLE IF NOT EXISTS users(name VARCHAR,password VARCHAR);");
+
+
+                btnfr2.setOnClickListener(this);
+        btnfr1.setOnClickListener(this);
+
     }
 
-    View.OnClickListener iniciar= new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-            final String name=user.getText().toString();
-            final String code=pass.getText().toString();
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()){
+            case R.id.logFra:
+                LoginFrg fragmento1 = new LoginFrg();
+                FragmentTransaction transaction=  getSupportFragmentManager().beginTransaction();
+                transaction.replace(R.id.contenedor,fragmento1);
+                transaction.commit();
+                break;
 
+            case R.id.regFra:
+                RegistroFrg fragmento3 = new RegistroFrg();
+                FragmentTransaction transaction1=  getSupportFragmentManager().beginTransaction();
+                transaction1.replace(R.id.contenedor,fragmento3);
+                transaction1.commit();
 
-            if(name.equals("") || code.equals("")) {
-                Toast.makeText(MainActivity.this, "ingrese un usuario y una contraseña",Toast.LENGTH_SHORT).show();
-            }else{
-                Intent i = new Intent(getApplicationContext(), Activity2.class);
-                i.putExtra("usuario",name);
-                i.putExtra("contra",code);
-                startActivity(i);
-                finish();
+                break;
 
-            }
         }
-    };
+    }
 
+    @Override
+    public void onFragmentInteraction(Uri uri) {
+
+    }
 }
